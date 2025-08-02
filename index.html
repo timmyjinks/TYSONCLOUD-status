@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <script src="status.js"></script>
+  </head>
+  <body
+    style="
+      padding: 0;
+      margin: 0;
+      background: black;
+      color: white;
+      font-size: 32px;
+    "
+  >
+    <main
+      style="
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <p style="color: white" id="status">Loading...</p>
+    </main>
+  </body>
+</html>
+
+<script>
+  async function checkStatus() {
+    const statusP = document.getElementById("status");
+    const statusSpan = document.createElement("span");
+    try {
+      const response = await fetch("https://tysoncloud-test.tysonjenkins.dev");
+
+      console.log(response);
+
+      statusSpan.textContent = "UP";
+      statusSpan.style.color = "lightgreen";
+    } catch (e) {
+      console.log(e);
+      statusSpan.textContent = "DOWN";
+      statusSpan.style.color = "red";
+    }
+
+    statusP.textContent = "TYSONCLOUD is ";
+    statusP.appendChild(statusSpan);
+  }
+  checkStatus();
+</script>
